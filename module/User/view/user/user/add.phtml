@@ -1,0 +1,48 @@
+<?php
+    $title = 'Add new user';
+    $this->headTitle($title);
+?>
+
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+    $useId = $form->get('uid');
+    $useId->setAttribute('class', 'form-control');
+    $useId->setAttribute('placeholder', 'User Id');
+
+    $password = $form->get('psw');
+    $password->setAttribute('class', 'form-control');
+    $password->setAttribute('placeholder', 'Password');
+
+    $email = $form->get('email');
+    $email->setAttribute('class', 'form-control');
+    $email->setAttribute('placeholder', 'Email Address');
+
+    $submit = $form->get('submit');
+    $submit->setAttribute('class', 'btn btn-primary');
+
+    $form->setAttribute('action', $this->url('user', ['action' => 'add']));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <?= $this->formLabel($useId) ?>
+    <?= $this->formElement($useId) ?>
+    <?= $this->formElementErrors()->render($useId, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($password) ?>
+    <?= $this->formElement($password) ?>
+    <?= $this->formElementErrors()->render($password, ['class' => 'help-block']) ?>
+</div>
+
+<div class="form-group">
+    <?= $this->formLabel($email) ?>
+    <?= $this->formElement($email) ?>
+    <?= $this->formElementErrors()->render($email, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
