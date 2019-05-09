@@ -82,4 +82,25 @@ class UserController extends AbstractActionController
 
         return $this->redirect()->toRoute('user');
     }
+
+    public function deleteAction(){
+        $uid = $this->params()->fromRoute('uid', "");
+
+        if($uid==""){
+            return $this->redirect()->toRoute('user');
+        }
+
+        $request = $this->getRequest();
+        if(!$request->isPost()){
+            return ['uid' => $uid, 'user' => $this->table->getUser($uid)];
+        }
+
+        $delete = $request->getPost('delete', 'No');
+        if($delete=='Yes'){
+            $uid = $request->getPost('uid');
+            $this->table->deleteUser($uid);
+        }
+
+        return $this->redirect()->toRoute('user');
+    }
 }
