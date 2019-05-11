@@ -49,8 +49,9 @@ class UserTable
             return;
         }
 
-        // Different with tutorial
-        $this->tableGateway->update($data);
+        // Remove the value based on key 'id'
+        unset($data['id']);
+        $this->tableGateway->update($data, ['uid' => $uid]);
     }
 
     public function deleteUser($uid){
