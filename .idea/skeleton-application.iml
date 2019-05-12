@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/module/Application/src" isTestSource="false" packagePrefix="Application\" />
       <sourceFolder url="file://$MODULE_DIR$/module/User/src" isTestSource="false" packagePrefix="User\" />
+      <sourceFolder url="file://$MODULE_DIR$/module/Blog/src" isTestSource="false" packagePrefix="Blog\" />
       <sourceFolder url="file://$MODULE_DIR$/module/User/test" isTestSource="true" packagePrefix="UserTest\" />
       <sourceFolder url="file://$MODULE_DIR$/module/Application/test" isTestSource="true" packagePrefix="ApplicationTest\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
