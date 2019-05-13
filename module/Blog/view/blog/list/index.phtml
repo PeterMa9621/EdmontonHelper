@@ -1,1 +1,11 @@
-<?php
+<h1>Blog</h1>
+
+<?php foreach ($this->posts as $post): ?>
+<article class="form-group">
+    <h1 id="<?= $post->getId(); ?>"><?= $post->getTitle(); ?></h1>
+    <p>
+        <?= $post->getText(); ?>
+    </p>
+</article>
+
+<?php endforeach; ?>
