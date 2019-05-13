@@ -3,16 +3,19 @@
 namespace Blog;
 
 use Blog\Controller\ListController;
+use Blog\Model\ZendDbSqlRepositoryFactory;
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [
         'aliases' => [
-            Model\PostRepositoryInterface::class => Model\PostRepository::class,
+            Model\PostRepositoryInterface::class => Model\ZendDbSqlRepository::class,
         ],
         'factories' => [
             Model\PostRepository::class => InvokableFactory::class,
+            Model\ZendDbSqlRepository::class => ZendDbSqlRepositoryFactory::class,
         ],
     ],
     'router' => [
@@ -24,6 +27,21 @@ return [
                     'defaults' => [
                         'controller' => Controller\ListController::class,
                         'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'detail' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/:id',
+                            'defaults' => [
+                                'action' => 'detail',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
                     ],
                 ],
             ],

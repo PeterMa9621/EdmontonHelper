@@ -1,0 +1,9 @@
+<?php
+$title = $post->getTitle();
+$this->headTitle($title);
+
+?>
+<h1><?= $title ?></h1>
+<div class="form-group">
+    <?= $post->getText(); ?>
+</div>

@@ -3,7 +3,7 @@
 
 namespace Blog\Controller;
 
-
+use InvalidArgumentException;
 use Blog\Model\PostRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -20,5 +20,17 @@ class ListController extends AbstractActionController
     public function indexAction()
     {
         return new ViewModel(['posts' => $this->postRepository->findAllPosts()]);
+    }
+
+    public function detailAction(){
+        $id = $this->params()->fromRoute('id');
+
+        try{
+            $post = $this->postRepository->findPost($id);
+        } catch (InvalidArgumentException $e){
+            return $this->redirect()->toRoute('blog');
+        }
+
+        return new ViewModel(['post' => $post]);
     }
 }
