@@ -2,7 +2,7 @@
 
 namespace Blog;
 
-use Blog\Controller\ListController;
+use Blog\Model\ZendDbSqlCommandFactory;
 use Blog\Model\ZendDbSqlRepositoryFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -12,9 +12,11 @@ return [
     'service_manager' => [
         'aliases' => [
             Model\PostRepositoryInterface::class => Model\ZendDbSqlRepository::class,
+            Model\PostCommandInterface::class => Model\ZendDbSqlCommand::class,
         ],
         'factories' => [
             Model\PostRepository::class => InvokableFactory::class,
+            Model\ZendDbSqlCommand::class => ZendDbSqlCommandFactory::class,
             Model\ZendDbSqlRepository::class => ZendDbSqlRepositoryFactory::class,
         ],
     ],
@@ -43,6 +45,16 @@ return [
                             ],
                         ],
                     ],
+                    'add' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/add',
+                            'defaults' => [
+                                'controller' => Controller\WriteController::class,
+                                'action' => 'add',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -50,6 +62,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\ListController::class => Controller\ListControllerFactory::class,
+            Controller\WriteController::class => Controller\WriteControllerFactory::class,
         ],
     ],
 

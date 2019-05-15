@@ -34,6 +34,13 @@ class Post
         $this->text = $text;
     }
 
+    public function exchangeArray(array $data)
+    {
+        $this->id     = !empty($data['id']) ? $data['id'] : null;
+        $this->text = !empty($data['text']) ? $data['text'] : null;
+        $this->title  = !empty($data['title']) ? $data['title'] : null;
+    }
+
     /**
      * @return int|null
      */

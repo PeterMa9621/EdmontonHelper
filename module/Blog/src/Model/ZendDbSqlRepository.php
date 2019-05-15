@@ -27,8 +27,11 @@ class ZendDbSqlRepository implements PostRepositoryInterface
      * @var Post
      */
     private $postPrototype;
+
     /**
      * @param AdapterInterface $db
+     * @param HydratorInterface $hydrator
+     * @param Post $postPrototype
      */
     public function __construct(AdapterInterface $db, HydratorInterface $hydrator, Post $postPrototype)
     {
