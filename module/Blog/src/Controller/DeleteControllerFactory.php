@@ -3,7 +3,7 @@
 
 namespace Blog\Controller;
 
-use Blog\Form\PostForm;
+
 use Blog\Model\PostCommandInterface;
 use Blog\Model\PostRepositoryInterface;
 use Interop\Container\ContainerInterface;
@@ -12,7 +12,7 @@ use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class WriteControllerFactory implements FactoryInterface
+class DeleteControllerFactory implements FactoryInterface
 {
 
     /**
@@ -21,7 +21,7 @@ class WriteControllerFactory implements FactoryInterface
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param null|array $options
-     * @return WriteController
+     * @return DeleteController
      * @throws ServiceNotFoundException if unable to resolve the service.
      * @throws ServiceNotCreatedException if an exception is raised when
      *     creating a service.
@@ -29,11 +29,9 @@ class WriteControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $formManager = $container->get('FormElementManager');
-        return new WriteController(
-            $container->get(PostCommandInterface::class),
-            $formManager->get(PostForm::class),
-            $container->get(PostRepositoryInterface::class)
+        return new DeleteController(
+            $container->get(PostRepositoryInterface::class),
+            $container->get(PostCommandInterface::class)
         );
     }
 }

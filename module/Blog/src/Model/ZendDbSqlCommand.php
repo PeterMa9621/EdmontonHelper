@@ -3,11 +3,13 @@
 
 namespace Blog\Model;
 
-
+use RuntimeException;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Adapter\Driver\ResultInterface;
+use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Update;
 
 class ZendDbSqlCommand implements PostCommandInterface
 {
@@ -55,7 +57,33 @@ class ZendDbSqlCommand implements PostCommandInterface
      */
     public function updatePost(Post $post)
     {
-        // TODO: Implement updatePost() method.
+        $id = $post->getId();
+        if(! $id){
+            throw new RuntimeException(
+                'Cannot update post; missing identifier'
+            );
+        }
+        $title = $post->getTitle();
+        $text = $post->getText();
+
+        $update = new Update('posts');
+        $update->set([
+            'title' => $title,
+            'text' => $text,
+        ]);
+        $update->where(['id = ?' => $id]);
+
+        $sql = new Sql($this->db);
+        $statement = $sql->prepareStatementForSqlObject($update);
+        $result = $statement->execute();
+
+        if(! $result instanceof ResultInterface){
+            throw new RuntimeException('
+                Database error occurred during blog post update operation'
+            );
+        };
+
+        return $post;
     }
 
     /**
@@ -66,6 +94,24 @@ class ZendDbSqlCommand implements PostCommandInterface
      */
     public function deletePost(Post $post)
     {
-        // TODO: Implement deletePost() method.
+        $id = $post->getId();
+        if(! $id){
+            throw new RuntimeException(
+                'Cannot delete post; missing identifier'
+            );
+        }
+
+        $delete = new Delete('posts');
+        $delete->where(['id = ?' => $id]);
+
+        $sql = new Sql($this->db);
+        $statement = $sql->prepareStatementForSqlObject($delete);
+        $result = $statement->execute();
+
+        if(! $result instanceof ResultInterface){
+            return false;
+        };
+
+        return true;
     }
 }

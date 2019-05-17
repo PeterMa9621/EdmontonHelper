@@ -55,6 +55,32 @@ return [
                             ],
                         ],
                     ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/edit[/:id]',
+                            'defaults' => [
+                                'controller' => Controller\WriteController::class,
+                                'action' => 'edit',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete[/:id]',
+                            'defaults' => [
+                                'controller' => Controller\DeleteController::class,
+                                'action' => 'delete',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -63,6 +89,7 @@ return [
         'factories' => [
             Controller\ListController::class => Controller\ListControllerFactory::class,
             Controller\WriteController::class => Controller\WriteControllerFactory::class,
+            Controller\DeleteController::class => Controller\DeleteControllerFactory::class,
         ],
     ],
 

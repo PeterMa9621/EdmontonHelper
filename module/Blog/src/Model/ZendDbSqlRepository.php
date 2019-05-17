@@ -97,7 +97,7 @@ class ZendDbSqlRepository implements PostRepositoryInterface
 
         $post = $resultSet->current();
 
-        if(! $post){
+        if(!$post){
             throw new InvalidArgumentException(sprintf(
                 'Blog post with identifier "%s" not found.',
                 $id

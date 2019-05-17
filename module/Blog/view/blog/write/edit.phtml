@@ -1,14 +1,14 @@
 <?php
-$title = 'Post a blog';
+$title = 'Edit a blog';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url());
+$form->setAttribute('action', $this->url('blog/edit', [], true));
 
 echo $this->partial('blog/write/form', [
     'form' => $form,
-    'submitLabel' => 'Insert new post',
+    'submitLabel' => 'Update post',
 ]);

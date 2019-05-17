@@ -1,11 +1,26 @@
 <h1>Blog</h1>
 
+<div class="list-group">
 <?php foreach ($this->posts as $post): ?>
-<article class="form-group">
-    <h1 id="<?= $post->getId(); ?>"><?= $post->getTitle(); ?></h1>
-    <p>
-        <?= $post->getText(); ?>
-    </p>
-</article>
+    <div class="list-group-item"">
+        <h4 class="list-group-item-heading">
+            <a href="<?= $this->url('blog/detail', ['id' => $post->getId()]) ?>">
+                <?= $post->getTitle() ?>
+            </a>
+        </h4>
 
+        <div class="btn-group" role="group" aria-label="Post Actions">
+            <a class="btn btn-xs btn-default" href="<?= $this->url('blog/edit', ['id' => $post->getId()]) ?>">
+                Edit
+            </a>
+            <a class="btn btn-xs btn-danger" href="<?= $this->url('blog/delete', ['id' => $post->getId()]) ?>">
+                Delete
+            </a>
+        </div>
+    </div>
 <?php endforeach; ?>
+</div>
+
+<div class="btn-group" role="group" aria-label="Post Actions">
+    <a class="btn btn-primary" href="<?= $this->url('blog/add') ?>">Post new Blog</a>
+</div>
